@@ -68,8 +68,6 @@ def LU_solve(A, b):
     Complexity: The decomposition itself is O(n^3) and the solve phase is O(n^2). So, overall it's O(n^3).
     """
     L, U = LU_decomp(A)
-    print(L)
-    print(U)
     y = triang_inf(L, b)
     x = triang_sup(U, y)
     return x
@@ -80,21 +78,34 @@ def cholesky(A):
     Complexity: O(n^3), where n is the number of rows/columns in A.
     """
     n = len(A)
-    C = np.zeros((n,n))
-    C[0,0] = np.sqrt(A[0,0])
-    for j in range(1,n):
-        C[0,j] = A[0,j] / C[0,0]
-    for i in range(1,n):
-        S = 0
-        for k in range(0,i):
-            S += C[k,i]**2
-        C[i,i] = np.sqrt(A[i,i] - S)
-        for j in range(i+1,n):
-            S = 0
-            for k in range(0,i):
-                S += C[k,i]*C[k,j]
-            C[i,j] = (A[i,j] - S) / C[i,i]
-    return C, C.T
+    L = np.zeros((n, n))
+
+    for i in range(n):
+        for j in range(i+1):
+            sum = 0
+            if j == i:  # Diagonal elements
+                for k in range(j):
+                    sum += L[j, k] ** 2
+                L[j, j] = np.sqrt(A[j, j] - sum)
+            else:
+                for k in range(j):
+                    sum += L[i, k] * L[j, k]
+                if L[j, j] > 0:
+                    L[i, j] = (A[i, j] - sum) / L[j, j]
+
+    return L, L.T
+
+def resolcholesky(A,b):
+    """
+    Solves the system of linear equations Ax = b using Cholesky decomposition.
+    Complexity: The decomposition itself is O(n^3) and the solve phase is O(n^2). So, overall it's O(n^3).
+    """
+    print(A)
+    C, C_t = cholesky(A)
+    print(np.dot(C, C_t))
+    y = triang_inf(C, b)
+    x = triang_sup(C_t, y)
+    return x
 
 if __name__ == '__main__':
     # Test matrices
