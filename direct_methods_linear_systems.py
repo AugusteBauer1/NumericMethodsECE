@@ -100,9 +100,9 @@ def resolcholesky(A,b):
     Solves the system of linear equations Ax = b using Cholesky decomposition.
     Complexity: The decomposition itself is O(n^3) and the solve phase is O(n^2). So, overall it's O(n^3).
     """
-    print(A)
+    # print(A)
     C, C_t = cholesky(A)
-    print(np.dot(C, C_t))
+    # print(np.dot(C, C_t))
     y = triang_inf(C, b)
     x = triang_sup(C_t, y)
     return x

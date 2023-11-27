@@ -60,6 +60,8 @@ def plot_displacement(x, u):
     plt.show()
 
 if __name__ == '__main__':
-    method = 'LU'  # Change to 'Cholesky' if you want to use Cholesky decomposition
-    x, u = finite_difference_solver(INTERVAL, force, method)
-    plot_displacement(x, u)
+    x_LU, u_LU = finite_difference_solver(INTERVAL, force, 'LU')
+    plot_displacement(x_LU, u_LU)
+
+    x_Cholesky, u_Cholesky = finite_difference_solver(INTERVAL, force, 'Cholesky')
+    plot_displacement(x_Cholesky, u_Cholesky)
