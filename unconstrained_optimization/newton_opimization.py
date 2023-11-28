@@ -4,7 +4,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 
 sys.path.append(str(Path(__file__).parent.parent))
-from direct_methods_linear_systems import LU_solve
+from linear_systems.direct_methods_linear_systems import LU_solve
 from utils import Arrow3D, _arrow3D, rosenbrock, rosenbrock_prime, hessian_rosenbrock
 
 
