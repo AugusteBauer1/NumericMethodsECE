@@ -2,7 +2,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 import time as t
 
-from direct_methods_linear_systems import LU_solve, resolcholesky
+from linear_systems.direct_methods_linear_systems import LU_solve, resolcholesky
 
 INTERVAL = 20
 
