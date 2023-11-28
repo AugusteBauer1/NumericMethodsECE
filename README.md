@@ -2,8 +2,7 @@
 Numeric algorithms and scientific computations from scratch
 
 This repository contains the implementation of some numerical scientific computations from scratch :
-- Direct methods to solve linear systems in the form of Ax=b. It includes Gaussian elimination, LU factorization, and the Cholesky decomposition.
-- Iterative methods to solve linear systems in the form of Ax=b. It includes the Jacobi, Gauss-Seidel, and SOR methods.
-- Root finding methods. It includes the Bisection and the fixed-point iteration methods.
-- Interpolation methods. It includes the Lagrange method and the runge phenomenon.
-- Numerical integration methods. It includes the Trapezoidal rule and the Simpson's rule.
+- Direct and iterative methods for solving linear systems such as Gaussian elimination, LU decomposition, Gauss-Seidel, SOR, etc.
+- Root finding methods such as bissection or Newton-Raphson algorithms for functions in **R1**, **C** and **Rn**.
+- Optimization methods such as gradient descent (fixed & optimal step), Newton's method and quasi-Newton methods.
+- Some numerical analysis methods such as interpolation, numerical integration and differentiation, etc.
