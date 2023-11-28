@@ -1,5 +1,5 @@
 # NumericMethodsECE
-Numeric algorithms and scientific computations from scratch
+*Numeric algorithms and scientific computations from scratch*
 
 This repository contains the implementation of some numerical scientific computations from scratch :
 - Direct and iterative methods for solving linear systems such as Gaussian elimination, LU decomposition, Gauss-Seidel, SOR, etc.
