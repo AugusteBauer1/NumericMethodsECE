@@ -1,18 +1,15 @@
+import sys
+from pathlib import Path
 import numpy as np
 import matplotlib.pyplot as plt
 
-from direct_methods_linear_systems import LU_solve
-
-# def g(x):
-#     return [x[0]**2 + x[1]**2 - 2, x[0]**2 - x[1]**2 - 1]
-
-# def g_prime(x):
-#     return [[2*x[0], 2*x[1]], [2*x[0], -2*x[1]]]
+sys.path.append(str(Path(__file__).parent.parent))
+from linear_systems.direct_methods_linear_systems import LU_solve
 
 def g(x):
     return [x[0]**2 - x[1] - 1, x[1]**2 - x[1]]
 
-def g_prime(x):
+def g_jacobi(x):
     return [[2*x[0], -1], [-1, 2*x[1]]]
 
 def newton_raphson_R2(epsilon, x_init):
@@ -24,20 +21,20 @@ def newton_raphson_R2(epsilon, x_init):
     # first iteration
     # test if the matrix is invertible
     
-    delta = LU_solve(np.array(g_prime(x_init)), -np.array(g(x_init)))
+    delta = LU_solve(np.array(g_jacobi(x_init)), -np.array(g(x_init)))
     x = x_init + delta
     iterates = [x_init, x]
 
     # next iterations
     while abs(x[0] - iterates[-2][0]) + abs(x[1] - iterates[-2][1]) > epsilon:
-        delta = LU_solve(np.array(g_prime(x)), -np.array(g(x)))
+        delta = LU_solve(np.array(g_jacobi(x)), -np.array(g(x)))
         x = x + delta
         iterates.append(x)
 
     return iterates, len(iterates), x
 
 if __name__ == '__main__':
-    iterates, n, x = newton_raphson_R2(1e-5, [-1, -1])
+    iterates, n, x = newton_raphson_R2(1e-5, [-1.4, -1])
     print(f"Number of iterations: {n}")
     print(f"Root: {x}")
 
@@ -62,7 +59,7 @@ if __name__ == '__main__':
     for i in range(grid.shape[1]):
         for j in range(grid.shape[2]):
             # test if the matrix is invertible for each point of the grid
-            if np.linalg.det(g_prime(grid[:, i, j])) != 0:
+            if np.linalg.det(g_jacobi(grid[:, i, j])) != 0:
                 iterates,len_iterates[i,j], x = newton_raphson_R2(1e-5, grid[:, i, j])
                 if i % 5 == 0 and j % 10 == 0:
                     for k in range(len(iterates) - 1):
