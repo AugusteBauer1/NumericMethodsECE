@@ -1,7 +1,7 @@
 import numpy as np
 import matplotlib.pyplot as plt
 
-from utils import rosenbrock, rosenbrock_prime, Arrow3D, _arrow3D
+from utils import rosenbrock, rosenbrock_prime, _arrow3D
 
 def gradient_descent(x_init, learning_rate = 0.001, tolerance=1e-5, max_iteration=10000):
     """
