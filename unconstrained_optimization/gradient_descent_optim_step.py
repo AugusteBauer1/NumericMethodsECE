@@ -18,7 +18,6 @@ def gradient_descent_variable_step(x_init, a, b, f, f_prime, line_search, tolera
     while np.linalg.norm(residual) > tolerance and len(iterates) < max_iteration:
         f_alpha = lambda alpha: f(x - alpha * np.array(f_prime(x)))
         f_alpha_prime = lambda alpha: f_prime(x + alpha * np.array(f_prime(x))) * np.array(f_prime(x))
-
         descent_direction = np.array(f_prime(x))
         if line_search.__name__ == 'golden_section_search':
             learning_rate = golden_section_search(f_alpha, a, b)
@@ -73,9 +72,12 @@ if __name__ == '__main__':
 
     print("-------------------------------------")
     print("For the Rosenbrock function, in 2D: ")
-    iterates_wolfe_2D, x_wolfe_2D = gradient_descent_variable_step(np.array([1.8, -1.7]), 0, 2, rosenbrock, rosenbrock_prime, wolfe_search)
+    iterates_wolfe_2D, x_wolfe_2D = gradient_descent_variable_step(np.array([-1, 0.5]), 0, 2, rosenbrock, rosenbrock_prime, wolfe_search)
     print(f"Mimimum of the Rosenbrock function using the Wolfe method: {x_wolfe_2D}")
     print(f"No. of iterations using the Wolfe method: {len(iterates_wolfe_2D)}")
+    iterates_golden_section_2D, x_golden_section_2D = gradient_descent_variable_step(np.array([-1, 0.5]), 0, 2, rosenbrock, rosenbrock_prime, golden_section_search)
+    print(f"Mimimum of the Rosenbrock function using the golden section method: {x_golden_section_2D}")
+    print(f"No. of iterations using the golden section method: {len(iterates_golden_section_2D)}")
 
 
     x1 = np.linspace(-2, 2, 50)
@@ -101,5 +103,16 @@ if __name__ == '__main__':
 
         end = iterates_wolfe_2D[end_idx]
         _arrow3D(ax, start[0], start[1], rosenbrock(start), end[0] - start[0], end[1] - start[1], rosenbrock(end) - rosenbrock(start), mutation_scale=20, arrowstyle="-|>", color="b")
+
+
+    for i in range(0, len(iterates_golden_section_2D) - 1, step_size):
+        start = iterates_golden_section_2D[i]
+
+        end_idx = i + step_size
+        if end_idx >= len(iterates_golden_section_2D):
+            end_idx = len(iterates_golden_section_2D) - 1
+
+        end = iterates_golden_section_2D[end_idx]
+        _arrow3D(ax, start[0], start[1], rosenbrock(start), end[0] - start[0], end[1] - start[1], rosenbrock(end) - rosenbrock(start), mutation_scale=20, arrowstyle="-|>", color="g")
 
     plt.show()

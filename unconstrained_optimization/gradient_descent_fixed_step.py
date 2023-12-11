@@ -3,7 +3,7 @@ import matplotlib.pyplot as plt
 
 from utils import rosenbrock, rosenbrock_prime, _arrow3D
 
-def gradient_descent(x_init, learning_rate = 0.001, tolerance=1e-5, max_iteration=10000):
+def gradient_descent(x_init, learning_rate = 0.001, tolerance=1e-5, max_iteration=100000):
     """
     Use the gradient descent method with rate to find the minimum of a function f in R2.
     """
@@ -12,7 +12,7 @@ def gradient_descent(x_init, learning_rate = 0.001, tolerance=1e-5, max_iteratio
     iterates = [x_init]
     residual = 2 * tolerance
 
-    while np.linalg.norm(residual) > tolerance and len(iterates) < max_iteration:
+    while residual > tolerance and len(iterates) < max_iteration:
         delta = - learning_rate * np.array(rosenbrock_prime(x))
         x = x + delta
         residual = np.linalg.norm(x - iterates[-1])

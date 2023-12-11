@@ -38,7 +38,7 @@ def golden_section_search(f_alpha, a, b, tolerance=1e-5):
 
     return (a + b) / 2
 
-def wolfe_search(f_alpha, f_alpha_prime, x, d, rho=0.5, c1=1e-4, c2=0.90, tolerance=0.0001):
+def wolfe_search(f_alpha, f_alpha_prime, x, d, rho=0.5, c1=1e-3, c2=0.90, tolerance=0.0001):
     """
     Use the Wolfe search method to find a good step size given a function f.
     This method is called an inexact line search, it does not guarantee optimality but a sufficient decrease in the function.
